@@ -84,10 +84,8 @@ public class Examen1Lab5_LeonardoBorjas {
                                             for (Archivo a : proyectos.get(espacio).getArchivos()) {
                                                 System.out.println(proyectos.get(espacio).getArchivos().indexOf(a) + " " + a);
                                             }
-                                            for (Carpeta c : proyectos.get(espacio).getCarpetas()) {
-                                                System.out.println(proyectos.get(espacio).getCarpetas().indexOf(c) + " " + c);
-                                            }
-                                            System.out.println("1. Crear Archivo\n"
+                                            
+                                            System.out.println("\n1. Crear Archivo\n"
                                                     + "2. Modificar Archivo\n"
                                                     + "3. Eliminar Archivo\n"
                                                     + "4. Ingresar Comando\n"
@@ -106,25 +104,25 @@ public class Examen1Lab5_LeonardoBorjas {
                                                             for (Usuario u : usuarios) {
                                                                 if (u.getUsername().equals(usuario)) {
                                                                     if (proyectos.get(espacio).getColaboradores().contains(u)) {
-                                                                        
-                                                                    }else{
+
+                                                                    } else {
                                                                         proyectos.get(espacio).getColaboradores().add(u);
                                                                     }
-                                                                    
+
                                                                 }
                                                             }
-                                                            
+
                                                             break;
                                                         case 2:
                                                             proyectos.get(espacio).getArchivos().add(carpeta());
                                                             for (Usuario u : usuarios) {
                                                                 if (u.getUsername().equals(usuario)) {
                                                                     if (proyectos.get(espacio).getColaboradores().contains(u)) {
-                                                                        
-                                                                    }else{
+
+                                                                    } else {
                                                                         proyectos.get(espacio).getColaboradores().add(u);
                                                                     }
-                                                                    
+
                                                                 }
                                                             }
                                                             break;
@@ -136,23 +134,27 @@ public class Examen1Lab5_LeonardoBorjas {
                                                     int space = sc.nextInt();
                                                     if (space < proyectos.get(espacio).getArchivos().size()) {
                                                         if (proyectos.get(espacio).getArchivos().get(space) instanceof Carpeta) {
+                                                            for (Archivo a : ((Carpeta)proyectos.get(espacio).getArchivos().get(space)).getArchivos()) {
+                                                                
+                                                            }
+                                                            
 
                                                         }
                                                         if (proyectos.get(espacio).getArchivos().get(space) instanceof ArchivoTexto) {
                                                             ((ArchivoTexto) proyectos.get(espacio).getArchivos().get(space)).setContenido(modAT(((ArchivoTexto) proyectos.get(espacio).getArchivos().get(space)).getContenido()));
                                                         }
                                                     }
-                                                    
+
                                                     for (Usuario u : usuarios) {
-                                                                if (u.getUsername().equals(usuario)) {
-                                                                    if (proyectos.get(espacio).getColaboradores().contains(u)) {
-                                                                        
-                                                                    }else{
-                                                                        proyectos.get(espacio).getColaboradores().add(u);
-                                                                    }
-                                                                    
-                                                                }
-                                                            }   
+                                                        if (u.getUsername().equals(usuario)) {
+                                                            if (proyectos.get(espacio).getColaboradores().contains(u)) {
+
+                                                            } else {
+                                                                proyectos.get(espacio).getColaboradores().add(u);
+                                                            }
+
+                                                        }
+                                                    }
                                                     break;
                                                 case 3:
                                                     System.out.println("Cual archivo quiere eliminar?");
@@ -160,21 +162,21 @@ public class Examen1Lab5_LeonardoBorjas {
                                                     if (space < proyectos.get(espacio).getArchivos().size()) {
                                                         proyectos.get(espacio).getArchivos().remove(space);
                                                     }
-                                                    
+
                                                     for (Usuario u : usuarios) {
-                                                                if (u.getUsername().equals(usuario)) {
-                                                                    if (proyectos.get(espacio).getColaboradores().contains(u)) {
-                                                                        
-                                                                    }else{
-                                                                        proyectos.get(espacio).getColaboradores().add(u);
-                                                                    }
-                                                                    
-                                                                }
+                                                        if (u.getUsername().equals(usuario)) {
+                                                            if (proyectos.get(espacio).getColaboradores().contains(u)) {
+
+                                                            } else {
+                                                                proyectos.get(espacio).getColaboradores().add(u);
                                                             }
+
+                                                        }
+                                                    }
                                                     break;
                                                 case 4:
                                                     System.out.println("Inserte comando de push (leo.push)");
-                                                    String push=sc.next();
+                                                    String push = sc.next();
                                                     if ("leo.push".equals(push)) {
                                                         for (Usuario u : proyectos.get(espacio).getColaboradores()) {
                                                             u.getProyectos().add(proyectos.get(espacio));

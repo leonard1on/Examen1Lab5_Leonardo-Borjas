@@ -5,17 +5,27 @@
  */
 package examen1lab5_leonardoborjas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Leonardo Borjas
  */
 public class Carpeta extends Archivo{
-
+ArrayList<Archivo> archivos=new ArrayList();
     public Carpeta() {
     }
 
     public Carpeta(String nombre, int tamano) {
         super(nombre, tamano);
+    }
+
+    public ArrayList<Archivo> getArchivos() {
+        return archivos;
+    }
+
+    public void setArchivos(ArrayList<Archivo> archivos) {
+        this.archivos = archivos;
     }
 
     @Override
