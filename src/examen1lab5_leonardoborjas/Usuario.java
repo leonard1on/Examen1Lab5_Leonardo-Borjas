@@ -5,6 +5,8 @@
  */
 package examen1lab5_leonardoborjas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Leonardo Borjas
@@ -15,6 +17,7 @@ public class Usuario {
     private String profesion;
     private String username;
     private String password;
+    private ArrayList<Proyecto> proyectos=new ArrayList();
 
     public Usuario() {
     }
@@ -66,6 +69,15 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public ArrayList<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(ArrayList<Proyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
+    
 
     @Override
     public String toString() {

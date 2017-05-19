@@ -80,14 +80,14 @@ public class Examen1Lab5_LeonardoBorjas {
                                         int menu3=0;
                                         
                                         do {
+                                            System.out.println("*****"+proyectos.get(espacio)+"*****");
                                             for (Archivo a : proyectos.get(espacio).getArchivos()) {
                                                 System.out.println(proyectos.get(espacio).getArchivos().indexOf(a) + " " + a);
                                             }
                                             for (Carpeta c : proyectos.get(espacio).getCarpetas()) {
                                                 System.out.println(proyectos.get(espacio).getCarpetas().indexOf(c) + " " + c);
                                             }
-                                            System.out.println("*****"+proyectos.get(espacio)+"*****"
-                                                    + "\n1. Crear Archivo\n"
+                                            System.out.println("1. Crear Archivo\n"
                                                     + "2. Modificar Archivo\n"
                                                     + "3. Eliminar Archivo\n"
                                                     + "4. Ingresar Comando\n"
@@ -109,9 +109,24 @@ public class Examen1Lab5_LeonardoBorjas {
                                                     }
                                                     break;
                                                 case 2:
+                                                    avanzar=false;
+                                                    System.out.println("Que archivo desea modificar");
+                                                    int space=sc.nextInt();
+                                                    if (space<proyectos.get(espacio).getArchivos().size()) {
+                                                        if (proyectos.get(espacio).getArchivos().get(space) instanceof Carpeta) {
+                                                            
+                                                        }
+                                                        if (proyectos.get(espacio).getArchivos().get(space) instanceof ArchivoTexto) {
+                                                            
+                                                        }
+                                                    }
                                                     break;
                                                 case 3:
                                                     System.out.println("Cual archivo quiere eliminar?");
+                                                    space=sc.nextInt();
+                                                    if (space<proyectos.get(espacio).getArchivos().size()) {
+                                                        proyectos.get(espacio).getArchivos().remove(space);
+                                                    }
                                                     break;
                                                 case 4:
                                             }
@@ -248,7 +263,8 @@ public class Examen1Lab5_LeonardoBorjas {
         System.out.println("Cual es el tamano del archivo?");
         int tamano=sc.nextInt();
         System.out.println("Ingrese el contenido del archivo");
-        String contenido=sc.next();
+        String contenido=sc.nextLine();
+        
         System.out.println();
         return new ArchivoTexto(contenido,nombre,tamano);
     }
