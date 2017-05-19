@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Examen1Lab5_LeonardoBorjas {
 
     static Scanner sc = new Scanner(System.in);
+    static String usuario;
 
     /**
      * @param args the command line arguments
@@ -22,6 +23,7 @@ public class Examen1Lab5_LeonardoBorjas {
     public static void main(String[] args) {
         int menu = 0;
         ArrayList<Usuario> usuarios = new ArrayList();
+        ArrayList<Proyecto> proyectos = new ArrayList();
         do {
             System.out.println("*****MENU*****\n"
                     + "1. Registrar Usuario\n"
@@ -47,12 +49,37 @@ public class Examen1Lab5_LeonardoBorjas {
                     }
                     break;
                 case 5:
-                    boolean entrar=login(usuarios);
+                    boolean entrar = login(usuarios);
                     if (entrar) {
-                        System.out.println("si");
-                    }else{
-                        System.out.println("Usuario o Contraseña incorrecta");
+                        int menu2 = 0;
+                        do {
+                            for (Proyecto p : proyectos) {
+                                System.out.println(proyectos.indexOf(p) + " " + p);
+                            }
+                            System.out.println("Bienvenido a Leohub\n"
+                                    + "1. Crear Proyecto\n"
+                                    + "2. Modificar Proyecto\n"
+                                    + "3. Eliminar Proyecto\n"
+                                    + "4. Log Out");
+                            menu2 = sc.nextInt();
+                            switch (menu2) {
+                                case 1:
+                                    proyectos.add(proyecto(usuarios));
+
+                                    break;
+                                case 2:
+
+                                    break;
+                                case 3:
+                                    proyectos = removproyecto(proyectos);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } while (menu2 != 4);
+
                     }
+
                     break;
                 default:
                     break;
@@ -121,17 +148,48 @@ public class Examen1Lab5_LeonardoBorjas {
     public static boolean login(ArrayList<Usuario> usuarios) {
         boolean login = false;
         System.out.println("Ingrese Usuario");
-        String usuario = sc.next();
+        usuario = sc.next();
         System.out.println("Ingrese Conraseña");
         String contra = sc.next();
         for (Usuario u : usuarios) {
             if (u.getUsername().equals(usuario) && u.getPassword().equals(contra)) {
-                System.out.println("Ingresado correctamente");
+                System.out.println("Ingresado Correctamente");
                 login = true;
+            }
+            if (!u.getUsername().equals(usuario)) {
+                System.out.println("Usuario incorrecto");
+            }
+            if (!u.getPassword().equals(contra)) {
+                System.out.println("Contraseña incorrecta");
             }
 
         }
 
         return login;
+    }
+
+    public static Proyecto proyecto(ArrayList<Usuario> usuarios) {
+        System.out.println("Cual es el nombre de su proyecto?");
+        String nombre = sc.next();
+        Proyecto nuevo = new Proyecto(nombre);
+        for (Usuario u : usuarios) {
+            if (u.getUsername().equals(usuario)) {
+                nuevo.getColaboradores().add(u);
+            }
+        }
+
+        return nuevo;
+    }
+
+    public static ArrayList<Proyecto> removproyecto(ArrayList<Proyecto> proyecto) {
+        for (Proyecto p : proyecto) {
+            System.out.println(proyecto.indexOf(p) + " " + p);
+        }
+        System.out.println("Cual Proyecto desea remover?");
+        int espacio = sc.nextInt();
+        if (espacio < proyecto.size()) {
+            proyecto.remove(espacio);
+        }
+        return proyecto;
     }
 }
