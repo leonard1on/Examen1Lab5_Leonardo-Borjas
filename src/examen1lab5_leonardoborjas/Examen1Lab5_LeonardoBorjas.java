@@ -77,10 +77,10 @@ public class Examen1Lab5_LeonardoBorjas {
                                     }
 //----------------------------------------------------------------------Archivos y Carpetas----------------------------------------                                    
                                     if (avanzar) {
-                                        int menu3=0;
-                                        
+                                        int menu3 = 0;
+
                                         do {
-                                            System.out.println("*****"+proyectos.get(espacio)+"*****");
+                                            System.out.println("*****" + proyectos.get(espacio) + "*****");
                                             for (Archivo a : proyectos.get(espacio).getArchivos()) {
                                                 System.out.println(proyectos.get(espacio).getArchivos().indexOf(a) + " " + a);
                                             }
@@ -92,46 +92,100 @@ public class Examen1Lab5_LeonardoBorjas {
                                                     + "3. Eliminar Archivo\n"
                                                     + "4. Ingresar Comando\n"
                                                     + "5. Volver");
-                                            menu3=sc.nextInt();
-                                            switch(menu3){
+                                            menu3 = sc.nextInt();
+                                            switch (menu3) {
                                                 case 1:
                                                     System.out.println("Desea crear:\n"
                                                             + "1. Archivo de Texto\n"
                                                             + "2. Carpeta");
-                                                    int opcion=sc.nextInt();
+                                                    int opcion = sc.nextInt();
                                                     switch (opcion) {
                                                         case 1:
                                                             proyectos.get(espacio).getArchivos().add(archivotexto());
+
+                                                            for (Usuario u : usuarios) {
+                                                                if (u.getUsername().equals(usuario)) {
+                                                                    if (proyectos.get(espacio).getColaboradores().contains(u)) {
+                                                                        
+                                                                    }else{
+                                                                        proyectos.get(espacio).getColaboradores().add(u);
+                                                                    }
+                                                                    
+                                                                }
+                                                            }
+                                                            
                                                             break;
                                                         case 2:
                                                             proyectos.get(espacio).getArchivos().add(carpeta());
+                                                            for (Usuario u : usuarios) {
+                                                                if (u.getUsername().equals(usuario)) {
+                                                                    if (proyectos.get(espacio).getColaboradores().contains(u)) {
+                                                                        
+                                                                    }else{
+                                                                        proyectos.get(espacio).getColaboradores().add(u);
+                                                                    }
+                                                                    
+                                                                }
+                                                            }
                                                             break;
                                                     }
                                                     break;
                                                 case 2:
-                                                    avanzar=false;
+                                                    avanzar = false;
                                                     System.out.println("Que archivo desea modificar");
-                                                    int space=sc.nextInt();
-                                                    if (space<proyectos.get(espacio).getArchivos().size()) {
+                                                    int space = sc.nextInt();
+                                                    if (space < proyectos.get(espacio).getArchivos().size()) {
                                                         if (proyectos.get(espacio).getArchivos().get(space) instanceof Carpeta) {
-                                                            
+
                                                         }
                                                         if (proyectos.get(espacio).getArchivos().get(space) instanceof ArchivoTexto) {
-                                                            
+                                                            ((ArchivoTexto) proyectos.get(espacio).getArchivos().get(space)).setContenido(modAT(((ArchivoTexto) proyectos.get(espacio).getArchivos().get(space)).getContenido()));
                                                         }
                                                     }
+                                                    
+                                                    for (Usuario u : usuarios) {
+                                                                if (u.getUsername().equals(usuario)) {
+                                                                    if (proyectos.get(espacio).getColaboradores().contains(u)) {
+                                                                        
+                                                                    }else{
+                                                                        proyectos.get(espacio).getColaboradores().add(u);
+                                                                    }
+                                                                    
+                                                                }
+                                                            }   
                                                     break;
                                                 case 3:
                                                     System.out.println("Cual archivo quiere eliminar?");
-                                                    space=sc.nextInt();
-                                                    if (space<proyectos.get(espacio).getArchivos().size()) {
+                                                    space = sc.nextInt();
+                                                    if (space < proyectos.get(espacio).getArchivos().size()) {
                                                         proyectos.get(espacio).getArchivos().remove(space);
                                                     }
+                                                    
+                                                    for (Usuario u : usuarios) {
+                                                                if (u.getUsername().equals(usuario)) {
+                                                                    if (proyectos.get(espacio).getColaboradores().contains(u)) {
+                                                                        
+                                                                    }else{
+                                                                        proyectos.get(espacio).getColaboradores().add(u);
+                                                                    }
+                                                                    
+                                                                }
+                                                            }
                                                     break;
                                                 case 4:
+                                                    System.out.println("Inserte comando de push (leo.push)");
+                                                    String push=sc.next();
+                                                    if ("leo.push".equals(push)) {
+                                                        for (Usuario u : proyectos.get(espacio).getColaboradores()) {
+                                                            u.getProyectos().add(proyectos.get(espacio));
+                                                        }
+                                                    }
+                                                    break;
+                                                default:
+                                                    break;
                                             }
-                                        } while (menu3!=5);
-                                        
+                                        } while (menu3 != 5);
+
                                     }
                                     break;
 //---------------------------------------------------------------------------------------------------------------------------------                                    
@@ -256,24 +310,37 @@ public class Examen1Lab5_LeonardoBorjas {
         }
         return proyecto;
     }
-    
-    public static Archivo archivotexto(){
+
+    public static Archivo archivotexto() {
         System.out.println("Cual es el nombre del archivo?");
-        String nombre=sc.next();
+        String nombre = sc.next();
         System.out.println("Cual es el tamano del archivo?");
-        int tamano=sc.nextInt();
+        int tamano = sc.nextInt();
         System.out.println("Ingrese el contenido del archivo");
-        String contenido=sc.nextLine();
-        
+        String contenido = sc.next();
+
         System.out.println();
-        return new ArchivoTexto(contenido,nombre,tamano);
+        return new ArchivoTexto(contenido, nombre, tamano);
     }
-    
-    public static Archivo carpeta(){
+
+    public static String modAT(String viejo) {
+        char resp = 't';
+        do {
+            System.out.println(viejo);
+            System.out.println("Que desea agregarle?");
+            String nuevo = sc.next();
+            viejo = viejo + " " + nuevo;
+            System.out.println("Desea guardar? si=s, no=n");
+        } while (resp != 's' || resp != 'n');
+
+        return viejo;
+    }
+
+    public static Archivo carpeta() {
         System.out.println("Cual es el nombre del archivo");
-        String nombre=sc.next();
+        String nombre = sc.next();
         System.out.println("Cual es el tamano");
-        int tamano=sc.nextInt();
+        int tamano = sc.nextInt();
         return new Carpeta(nombre, tamano);
     }
 }
