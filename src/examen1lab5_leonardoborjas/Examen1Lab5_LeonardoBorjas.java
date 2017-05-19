@@ -44,12 +44,13 @@ public class Examen1Lab5_LeonardoBorjas {
                     usuarios = removusuario(usuarios);
                     break;
                 case 4:
-                    for (Usuario usuario : usuarios) {
-                        System.out.println(usuarios.indexOf(usuario) + " " + usuario);
+                    for (Usuario u : usuarios) {
+                        System.out.println(usuarios.indexOf(u) + " " + u);
                     }
                     break;
                 case 5:
                     boolean entrar = login(usuarios);
+//-------------------------------------------------------Proyecto-----------------------                    
                     if (entrar) {
                         int menu2 = 0;
                         do {
@@ -68,8 +69,57 @@ public class Examen1Lab5_LeonardoBorjas {
 
                                     break;
                                 case 2:
-
+                                    boolean avanzar = false;
+                                    System.out.println("A cual Proyecto desea entrar para modificarlo?");
+                                    int espacio = sc.nextInt();
+                                    if (espacio < proyectos.size()) {
+                                        avanzar = true;
+                                    }
+//----------------------------------------------------------------------Archivos y Carpetas----------------------------------------                                    
+                                    if (avanzar) {
+                                        int menu3=0;
+                                        
+                                        do {
+                                            for (Archivo a : proyectos.get(espacio).getArchivos()) {
+                                                System.out.println(proyectos.get(espacio).getArchivos().indexOf(a) + " " + a);
+                                            }
+                                            for (Carpeta c : proyectos.get(espacio).getCarpetas()) {
+                                                System.out.println(proyectos.get(espacio).getCarpetas().indexOf(c) + " " + c);
+                                            }
+                                            System.out.println("*****"+proyectos.get(espacio)+"*****"
+                                                    + "\n1. Crear Archivo\n"
+                                                    + "2. Modificar Archivo\n"
+                                                    + "3. Eliminar Archivo\n"
+                                                    + "4. Ingresar Comando\n"
+                                                    + "5. Volver");
+                                            menu3=sc.nextInt();
+                                            switch(menu3){
+                                                case 1:
+                                                    System.out.println("Desea crear:\n"
+                                                            + "1. Archivo de Texto\n"
+                                                            + "2. Carpeta");
+                                                    int opcion=sc.nextInt();
+                                                    switch (opcion) {
+                                                        case 1:
+                                                            proyectos.get(espacio).getArchivos().add(archivotexto());
+                                                            break;
+                                                        case 2:
+                                                            proyectos.get(espacio).getArchivos().add(carpeta());
+                                                            break;
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    break;
+                                                case 3:
+                                                    System.out.println("Cual archivo quiere eliminar?");
+                                                    break;
+                                                case 4:
+                                            }
+                                        } while (menu3!=5);
+                                        
+                                    }
                                     break;
+//---------------------------------------------------------------------------------------------------------------------------------                                    
                                 case 3:
                                     proyectos = removproyecto(proyectos);
                                     break;
@@ -132,8 +182,8 @@ public class Examen1Lab5_LeonardoBorjas {
     }
 
     public static ArrayList<Usuario> removusuario(ArrayList<Usuario> usuarios) {
-        for (Usuario usuario : usuarios) {
-            System.out.println(usuarios.indexOf(usuario) + " " + usuario);
+        for (Usuario u : usuarios) {
+            System.out.println(usuarios.indexOf(u) + " " + u);
         }
         System.out.println("Cual usuario quiere eliminar?");
         int espacio = sc.nextInt();
@@ -146,7 +196,6 @@ public class Examen1Lab5_LeonardoBorjas {
     }
 
     public static boolean login(ArrayList<Usuario> usuarios) {
-        boolean login = false;
         System.out.println("Ingrese Usuario");
         usuario = sc.next();
         System.out.println("Ingrese Conraseña");
@@ -154,7 +203,7 @@ public class Examen1Lab5_LeonardoBorjas {
         for (Usuario u : usuarios) {
             if (u.getUsername().equals(usuario) && u.getPassword().equals(contra)) {
                 System.out.println("Ingresado Correctamente");
-                login = true;
+                return true;
             }
             if (!u.getUsername().equals(usuario)) {
                 System.out.println("Usuario incorrecto");
@@ -165,7 +214,7 @@ public class Examen1Lab5_LeonardoBorjas {
 
         }
 
-        return login;
+        return false;
     }
 
     public static Proyecto proyecto(ArrayList<Usuario> usuarios) {
@@ -191,5 +240,24 @@ public class Examen1Lab5_LeonardoBorjas {
             proyecto.remove(espacio);
         }
         return proyecto;
+    }
+    
+    public static Archivo archivotexto(){
+        System.out.println("Cual es el nombre del archivo?");
+        String nombre=sc.next();
+        System.out.println("Cual es el tamano del archivo?");
+        int tamano=sc.nextInt();
+        System.out.println("Ingrese el contenido del archivo");
+        String contenido=sc.next();
+        System.out.println();
+        return new ArchivoTexto(contenido,nombre,tamano);
+    }
+    
+    public static Archivo carpeta(){
+        System.out.println("Cual es el nombre del archivo");
+        String nombre=sc.next();
+        System.out.println("Cual es el tamano");
+        int tamano=sc.nextInt();
+        return new Carpeta(nombre, tamano);
     }
 }

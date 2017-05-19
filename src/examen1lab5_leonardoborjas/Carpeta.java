@@ -9,7 +9,19 @@ package examen1lab5_leonardoborjas;
  *
  * @author Leonardo Borjas
  */
-public class Carpeta extends Proyecto{
+public class Carpeta extends Archivo{
+
+    public Carpeta() {
+    }
+
+    public Carpeta(String nombre, int tamano) {
+        super(nombre, tamano);
+    }
+
+    @Override
+    public String toString() {
+        return "►"+super.toString();
+    }
     
     
 }
