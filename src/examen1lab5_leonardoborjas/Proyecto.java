@@ -16,7 +16,7 @@ public class Proyecto {
     private ArrayList<Carpeta> carpetas=new ArrayList();
     private ArrayList<Archivo> archivos=new ArrayList();
     private ArrayList<Usuario> colaboradores=new ArrayList();
-    private int commits;
+    private int commits=0;
 
     public Proyecto() {
     }

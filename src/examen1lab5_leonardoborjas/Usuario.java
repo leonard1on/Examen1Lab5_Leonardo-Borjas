@@ -77,12 +77,14 @@ public class Usuario {
     public void setProyectos(ArrayList<Proyecto> proyectos) {
         this.proyectos = proyectos;
     }
-    
 
     @Override
     public String toString() {
-        return "Usuario{" + "nombre=" + nombre + ", edad=" + edad + ", profesion=" + profesion + ", username=" + username + ", password=" + password + '}';
+        return "Usuario{" + "nombre=" + nombre + ", edad=" + edad + ", profesion=" + profesion + ", username=" + username + ", password=" + password + ", proyectos=" + proyectos + '}';
     }
+    
+
+    
     
     
     
